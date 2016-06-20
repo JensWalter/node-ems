@@ -45,7 +45,7 @@ INCS_Debug := \
 	-I/Users/jens/.node-gyp/4.4.3/src \
 	-I/Users/jens/.node-gyp/4.4.3/deps/uv/include \
 	-I/Users/jens/.node-gyp/4.4.3/deps/v8/include \
-	-I/Users/jens/tibco/ems/8.0/include
+	-I$(EMS_HOME)/include
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=node-ems' \
@@ -88,7 +88,7 @@ INCS_Release := \
 	-I/Users/jens/.node-gyp/4.4.3/src \
 	-I/Users/jens/.node-gyp/4.4.3/deps/uv/include \
 	-I/Users/jens/.node-gyp/4.4.3/deps/v8/include \
-	-I/Users/jens/tibco/ems/8.0/include
+	-I$(EMS_HOME)/include
 
 OBJS := \
 	$(obj).target/$(TARGET)/node-ems.o
@@ -153,7 +153,7 @@ LIBS := \
 	-lcrypto \
 	-lz \
 	-lpthread \
-	-L/Users/jens/tibco/ems/8.0/lib
+	-L$(EMS_HOME)/lib
 
 $(builddir)/node-ems.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
 $(builddir)/node-ems.node: LIBS := $(LIBS)
