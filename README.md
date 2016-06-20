@@ -3,10 +3,10 @@ This plugin provides basic connectivity between node.js and Tibco EMS. So far th
 
 ### What does work
 * send a text message to queue
-* send a tex message to topic
+* send a text message to topic
 
 ### What does not work
-* using connection pooling (currently every call establishes a new connection)
+* using connection pools (currently every call establishes a new connection)
 * transport encryption (no SSL at all)
 * subscriptions (neither Queue nor Topic)
 * QueueBrowser
@@ -35,5 +35,5 @@ console.log(msgId);
 
 ### How to build it
 1. Check out the repository
-2. modify the build.sh to point to your local EMS directory
+2. check the build.sh script for the correct EMS directory
 3. run the build.sh
