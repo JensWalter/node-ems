@@ -145,6 +145,9 @@ void sendMsgToDestinationSync(bool useTopic,const FunctionCallbackInfo<Value>& a
     return;
   }
 
+  tibemsMsgProducer_Close(msgProducer);
+  tibemsSession_Close(session);
+
   /* destroy the destination */
   status = tibemsDestination_Destroy(destination);
   if (status != TIBEMS_OK){
@@ -163,6 +166,8 @@ void sendMsgToDestinationSync(bool useTopic,const FunctionCallbackInfo<Value>& a
 
   tibemsErrorContext_Close(errorContext);
   args.GetReturnValue().Set(msgIdTyped);
+
+  free((void*)str);
 }
 
 
