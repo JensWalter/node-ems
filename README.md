@@ -2,8 +2,8 @@
 This plugin provides basic connectivity between node.js and Tibco EMS. So far this plugin is purely experimental and full of bugs. So don't use it for anything important.
 
 ### What does work
-* send a text message to queue
-* send a text message to topic
+* send a text message to queue (request/reply and push)
+* send a text message to topic (request/reply and push)
 
 ### What does not work
 * using connection pools (currently every call establishes a new connection)
