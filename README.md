@@ -1,6 +1,8 @@
 # node-ems
 This plugin provides basic connectivity between node.js and Tibco EMS. So far this plugin is purely experimental and full of bugs. So don't use it for anything important.
 
+You will still need the Tibco EMS Client installation. This plugin just wraps the c-based EMS client and exposes its functionality as node.js module.
+
 ### What does work
 * send a text message to queue (request/reply and push)
 * send a text message to topic (request/reply and push)
