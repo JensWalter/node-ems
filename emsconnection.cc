@@ -15,26 +15,24 @@ using v8::Object;
 using v8::Persistent;
 using v8::String;
 using v8::Value;
+using v8::Array;
 
 Persistent<Function> EmsConnection::constructor;
 
 EmsConnection::EmsConnection(const char* p_server,const char* p_user,const char* p_password) {
-  server = ( char *)malloc(strlen(p_server) + 1); 
-  strcpy(server, p_server);
-  user=p_user;
-  password=p_password;
+  server = p_server;
+  user = p_user;
+  password = p_password;
 }
 
 EmsConnection::~EmsConnection() {
 }
 
 const char* EmsConnection::V8StringToCString(v8::Local<v8::Value> value) {
-  const char * val = *v8::String::Utf8Value(value);
-  char * t = ( char *)malloc(strlen(val) + 1); 
-  strcpy(t, val);
-  return t;
-  // std::cout << "converting " <<  << std::endl;
-  // return *v8::String::Utf8Value(value);
+  v8::String::Utf8Value v8Str(value); 
+  char *cStr = (char*) malloc(strlen(*v8Str) + 1); 
+  strcpy(cStr, *v8Str); 
+  return cStr;
 }
 
 void EmsConnection::Init(Local<Object> exports) {
@@ -167,7 +165,7 @@ void EmsConnection::sendToDestinationSync(bool useTopic,const FunctionCallbackIn
     isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, str)));
     return;
   }
-        
+
   /* set the message text */
   const char * body = V8StringToCString(args[2]);
   status = tibemsTextMsg_SetText(msg,body);
@@ -175,6 +173,19 @@ void EmsConnection::sendToDestinationSync(bool useTopic,const FunctionCallbackIn
     tibemsErrorContext_GetLastErrorString(errorContext, &str);
     isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, str)));
     return;
+  }
+
+  /* set header properties */
+  if(args[1]->IsObject()){
+    Local<Object> lobj = args[1]->ToObject();
+    Local<Array> property_names = lobj->GetOwnPropertyNames();
+    for (uint32_t i = 0; i < property_names->Length(); ++i) {
+        Local<Value> key = property_names->Get(i);
+        Local<Value> value = lobj->Get(key);
+        if (key->IsString() && value->IsString()) {
+          tibemsMsg_SetStringProperty(msg, V8StringToCString(key), V8StringToCString(value));
+        }
+    }
   }
 
   /* publish the message */
@@ -318,7 +329,7 @@ void EmsConnection::requestFromDestinationSync(bool useTopic,const FunctionCallb
     tibemsSession_CreateConsumer(session, &consumer,response_queue,NULL,TIBEMS_FALSE);
   }
   status = tibemsConnection_Start(connection);
-
+  
   /* set the message text */
   const char * body = V8StringToCString(args[2]);
   status = tibemsTextMsg_SetText(msg,body);
@@ -326,6 +337,19 @@ void EmsConnection::requestFromDestinationSync(bool useTopic,const FunctionCallb
     tibemsErrorContext_GetLastErrorString(errorContext, &str);
     isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, str)));
     return;
+  }
+
+  /* set header properties */
+  if(args[1]->IsObject()){
+    Local<Object> lobj = args[1]->ToObject();
+    Local<Array> property_names = lobj->GetOwnPropertyNames();
+    for (uint32_t i = 0; i < property_names->Length(); ++i) {
+        Local<Value> key = property_names->Get(i);
+        Local<Value> value = lobj->Get(key);
+        if (key->IsString() && value->IsString()) {
+          tibemsMsg_SetStringProperty(msg, V8StringToCString(key), V8StringToCString(value));
+        }
+    }
   }
 
   if (useTopic){
