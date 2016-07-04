@@ -1,0 +1,18 @@
+{
+  "name":        "node-ems",
+  "version":     "1.0.0",
+  "description": "Tibco EMS bindings for nodejs",
+  "homepage":    "http://github.com/JensWalter/node-ems",
+  "author":      "Jens Walter <jens@apimeister.com>",
+  "license":     "Apache-2.0",
+  "engines" : { "node" : ">=4.0.0" },
+  "keywords": [
+    "EMS",
+    "Tibco"
+  ],
+  "repository": {
+    "type": "git",
+    "url":  "https://github.com/JensWalter/node-ems.git"
+  },
+  "gypfile": true
+}

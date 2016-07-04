@@ -12,8 +12,6 @@ You will still need the Tibco EMS Client installation. This plugin just wraps th
 * transport encryption (no SSL at all)
 * subscriptions (neither Queue nor Topic)
 * QueueBrowser
-* setting header properties of a message
-* lots of mem leaks
 
 ### How does is work
 ```javascript
@@ -51,6 +49,7 @@ console.log('done');
 ```
 
 ### How to build it
-1. Check out the repository
-2. check the build.sh script for the correct EMS directory
-3. run the build.sh
+1. setting the environment variables for EMS
+1.1 export EMS_HOME=/Users/jens/tibco/ems/8.0
+1.2 export DYLD_LIBRARY_PATH=DYLD_LIBRARY_PATH:/usr/lib:$EMS_HOME/lib
+2. npm i JensWalter/node-ems
