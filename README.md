@@ -50,6 +50,6 @@ console.log('done');
 
 ### How to build it
 1. setting the environment variables for EMS
-1.1 export EMS_HOME=/Users/jens/tibco/ems/8.0
-1.2 export DYLD_LIBRARY_PATH=DYLD_LIBRARY_PATH:/usr/lib:$EMS_HOME/lib
+  1. export EMS_HOME=/Users/jens/tibco/ems/8.0
+  2. export DYLD_LIBRARY_PATH=DYLD_LIBRARY_PATH:/usr/lib:$EMS_HOME/lib
 2. npm i JensWalter/node-ems
