@@ -51,5 +51,7 @@ console.log('done');
 ### How to build it
 1. setting the environment variables for EMS
   1. export EMS_HOME=/Users/jens/tibco/ems/8.0
-  2. export DYLD_LIBRARY_PATH=DYLD_LIBRARY_PATH:/usr/lib:$EMS_HOME/lib
-2. npm i JensWalter/node-ems
+  2. either
+    * on MacOS: export DYLD_LIBRARY_PATH=DYLD_LIBRARY_PATH:/usr/lib:$EMS_HOME/lib
+    * on Linux: export LD_LIBRARY_PATH=LD_LIBRARY_PATH:/usr/lib:$EMS_HOME/lib
+2. npm install JensWalter/node-ems
